@@ -1,13 +1,18 @@
-import { NavBarComponent } from "../components";
+import { NavBarComponent, ProtectedRouteComponent } from "../components";
 import { HeroSection } from "../sections";
 import FeaturesSection from "../sections/Features.section";
 
 const HomePage = () => {
   return (
     <>
-      <NavBarComponent />
-      <HeroSection />
-      <FeaturesSection />
+      <ProtectedRouteComponent
+        logic={localStorage.getItem("token")}
+        to={"/dashboard"}
+      >
+        <NavBarComponent />
+        <HeroSection />
+        <FeaturesSection />
+      </ProtectedRouteComponent>
     </>
   );
 };
