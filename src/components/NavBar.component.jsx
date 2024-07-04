@@ -9,7 +9,7 @@ import PageTransitionComponent from "./PageTransition.component";
 const NavBarComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
-  const navigate = useNavigate();
+  const nav = useNavigate();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -17,10 +17,6 @@ const NavBarComponent = () => {
     if (!menuRef.current?.contains(event.target)) {
       setIsOpen(false);
     }
-  };
-
-  const onClickHandler = () => {
-    navigate("/auth/register");
   };
 
   useEffect(() => {
@@ -55,17 +51,23 @@ const NavBarComponent = () => {
                 </a>
               </div>
               <div className="md:flex hidden gap-[30px]">
-                <ButtonComponent className="bg-secondary text-black hover:bg-[#ebebeb] border-primary font-poppins text-[15px] font-bold tracking-wider">
+                <ButtonComponent
+                  onClick={() => nav("/auth/token/obtain")}
+                  className="bg-secondary text-black hover:bg-[#ebebeb] border-primary font-poppins text-[15px] font-bold tracking-wider"
+                >
                   Sign in
                 </ButtonComponent>
-                <ButtonComponent onClick={onClickHandler} className="blue-btn">
+                <ButtonComponent
+                  onClick={() => nav("/auth/register")}
+                  className="blue-btn"
+                >
                   Register
                 </ButtonComponent>
               </div>
             </div>
             <div className="md:hidden flex items-center scale-[0.85]">
               <ButtonComponent
-                onClick={onClickHandler}
+                onClick={() => nav("/auth/register")}
                 className="mr-4 bg-primary hover:bg-[#014CEC] font-poppins text-[16px] font-bold tracking-wider"
               >
                 Register
@@ -99,7 +101,10 @@ const NavBarComponent = () => {
                   >
                     Features
                   </a>
-                  <ButtonComponent className="w-full bg-secondary text-black hover:bg-[#ebebeb] border-primary font-poppins text-[16px] font-bold tracking-wider mb-4 rounded-lg flex justify-center md:block">
+                  <ButtonComponent
+                    onClick={() => nav("/auth/token/obtain")}
+                    className="w-full bg-secondary text-black hover:bg-[#ebebeb] border-primary font-poppins text-[16px] font-bold tracking-wider mb-4 rounded-lg flex justify-center md:block"
+                  >
                     Sign in
                   </ButtonComponent>
                   <ButtonComponent

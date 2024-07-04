@@ -55,16 +55,9 @@ const RegisterPage = () => {
             severity: "error",
             summary: "Registration Failed",
             detail: result.msg || "Your registration failed. Please try again.",
-            life: 1500,
+            life: 5000,
           });
         }
-      } catch (error) {
-        toast.current?.show({
-          severity: "error",
-          summary: "Registration Failed",
-          detail: "There was an error during registration.",
-          life: 1500,
-        });
       } finally {
         setSubmitting(false);
       }

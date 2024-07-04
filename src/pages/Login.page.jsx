@@ -51,7 +51,7 @@ const LoginPage = () => {
             severity: "error",
             summary: "Registration Failed",
             detail: "Username or password is incorrect. Please try again.",
-            life: 1500,
+            life: 5000,
           });
         }
       } finally {

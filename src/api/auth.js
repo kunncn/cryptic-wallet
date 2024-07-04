@@ -1,45 +1,24 @@
-const baseURL = import.meta.env.VITE_BASE_URL;
-
+import axiosInstance from "./api";
 export const register = async (formData) => {
   try {
-    const response = await fetch(`${baseURL}/auth/register/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Registration failed");
-    }
-
-    const data = await response.json();
-    return { success: true, data };
+    const response = await axiosInstance.post("/auth/register/", formData);
+    return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, msg: error.message };
+    return {
+      success: false,
+      msg: error.response?.data?.message || "Registration failed",
+    };
   }
 };
 
 export const login = async (formData) => {
   try {
-    const response = await fetch(`${baseURL}/auth/token/obtain/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Login failed");
-    }
-
-    const data = await response.json();
-    return { success: true, data };
+    const response = await axiosInstance.post("/auth/token/obtain/", formData);
+    return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, msg: error.message };
+    return {
+      success: false,
+      msg: error.response?.data?.message || "Login failed",
+    };
   }
 };

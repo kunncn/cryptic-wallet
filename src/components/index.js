@@ -4,3 +4,6 @@ export { default as ButtonComponent } from "./Button.component";
 export { default as FormComponent } from "./Form.component";
 export { default as PageTransitionComponent } from "./PageTransition.component";
 export { default as ProtectedRouteComponent } from "./ProtectedRoute.component";
+export { default as HomeComponent } from "./Home.component";
+export { default as WalletComponent } from "./Wallet.component";
+export { default as ProfileComponent } from "./Profile.component";
