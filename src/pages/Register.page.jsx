@@ -7,11 +7,11 @@ import PageTransitionComponent from "../components/PageTransition.component";
 import { classNames } from "primereact/utils";
 import { Link, useLocation } from "react-router-dom";
 import InputField from "../components/InputField.component";
-import { register } from "../api/auth";
 import { Toast } from "primereact/toast";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProtectedRouteComponent } from "../components";
+import { useRegisterMutation } from "../services/endpoints/auth.endpoints";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -26,6 +26,7 @@ const validationSchema = Yup.object({
 });
 
 const RegisterPage = () => {
+  const [mutate, { isLoading, error, data }] = useRegisterMutation();
   const nav = useNavigate();
   const toast = useRef(null);
   const location = useLocation();
@@ -39,34 +40,33 @@ const RegisterPage = () => {
     },
     validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      try {
-        const result = await register(values);
-        console.log(result);
-        if (result.success) {
-          toast.current?.show({
-            severity: "success",
-            summary: "Registration Successful",
-            detail: "You have registered successfully.",
-            life: 1500,
-          });
-          setTimeout(() => nav("/auth/token/obtain"), 1800);
-        } else {
-          toast.current?.show({
-            severity: "error",
-            summary: "Registration Failed",
-            detail: result.msg || "Your registration failed. Please try again.",
-            life: 5000,
-          });
-        }
-      } finally {
-        setSubmitting(false);
+      const res = await mutate(values);
+      if (res.error) {
+        toast.current?.show({
+          severity: "error",
+          summary: "Registration Failed",
+          detail:
+            res.error.data?.message ||
+            "Your registration failed. Please try again.",
+          life: 5000,
+        });
       }
+      if (res.data) {
+        toast.current?.show({
+          severity: "success",
+          summary: "Registration Successful",
+          detail: "You have registered successfully.",
+          life: 1500,
+        });
+        setTimeout(() => nav("/auth/token/obtain"), 1800);
+      }
+      setSubmitting(false);
     },
   });
 
   return (
     <ProtectedRouteComponent
-      logic={localStorage.getItem("token")}
+      logic={localStorage.getItem("auth")}
       to={"/dashboard"}
     >
       <div className="h-screen flex items-center justify-center w-screen">
@@ -107,14 +107,14 @@ const RegisterPage = () => {
                 <InputField formik={formik} name="password" type="password" />
                 <ButtonComponent
                   type="submit"
-                  disabled={formik.isSubmitting}
+                  disabled={isLoading}
                   className={`w-full blue-btn rounded-lg flex justify-center md:block shadow-none border-none outline-none p-button p-component mt-[15px] p-button-rounded p-button-sm ${
                     !formik.isValid ? "pointer-events-none" : ""
                   }`}
                 >
                   <i
                     className={
-                      formik.isSubmitting
+                      isLoading
                         ? "pi pi-spinner text-[15px] me-2 animate-spin"
                         : undefined
                     }

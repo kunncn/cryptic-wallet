@@ -7,11 +7,11 @@ import PageTransitionComponent from "../components/PageTransition.component";
 import { classNames } from "primereact/utils";
 import { Link } from "react-router-dom";
 import InputField from "../components/InputField.component";
-import { login } from "../api/auth";
 import { Toast } from "primereact/toast";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProtectedRouteComponent } from "../components";
+import { useLoginMutation } from "../services/endpoints/auth.endpoints";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -23,6 +23,7 @@ const validationSchema = Yup.object({
 });
 
 const LoginPage = () => {
+  const [mutate, { isLoading, error, data }] = useLoginMutation();
   const toast = useRef(null);
   const nav = useNavigate();
 
@@ -33,36 +34,34 @@ const LoginPage = () => {
     },
     validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
-      try {
-        const result = await login(values);
-
-        if (result.success) {
-          toast.current?.show({
-            severity: "success",
-            summary: "Registration Successful",
-            detail: "You have logged in successfully.",
-            life: 1500,
-          });
-          const token = result.data.access;
-          localStorage.setItem("token", token);
-          setTimeout(() => nav("/dashboard"), 1800);
-        } else {
-          toast.current?.show({
-            severity: "error",
-            summary: "Registration Failed",
-            detail: "Username or password is incorrect. Please try again.",
-            life: 5000,
-          });
-        }
-      } finally {
-        setSubmitting(false);
+      const res = await mutate(values);
+      console.log(res.error);
+      if (res.error) {
+        toast.current?.show({
+          severity: "error",
+          summary: "Registration Failed",
+          detail: res.error.data?.detail,
+          life: 5000,
+        });
       }
+      if (res.data) {
+        toast.current?.show({
+          severity: "success",
+          summary: "Registration Successful",
+          detail: "You have logged in successfully.",
+          life: 1500,
+        });
+        const token = res.data.access;
+        localStorage.setItem("auth", token);
+        setTimeout(() => nav("/dashboard"), 1800);
+      }
+      setSubmitting(false);
     },
   });
 
   return (
     <ProtectedRouteComponent
-      logic={localStorage.getItem("token")}
+      logic={localStorage.getItem("auth")}
       to={"/dashboard"}
     >
       <div className="h-screen flex items-center justify-center w-screen">

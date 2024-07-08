@@ -48,7 +48,7 @@ const DashboardPage = () => {
 
   return (
     <ProtectedRouteComponent
-      logic={!localStorage.getItem("token")}
+      logic={!localStorage.getItem("auth")}
       to="/auth/token/obtain"
     >
       <div className="relative h-screen">

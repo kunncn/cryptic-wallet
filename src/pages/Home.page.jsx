@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <>
       <ProtectedRouteComponent
-        logic={localStorage.getItem("token")}
+        logic={localStorage.getItem("auth")}
         to={"/dashboard"}
       >
         <NavBarComponent />
