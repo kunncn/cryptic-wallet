@@ -8,23 +8,23 @@ import {
   WalletComponent,
 } from "../components";
 import React, { useState } from "react";
-import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import { confirmPopup, ConfirmPopup } from "primereact/confirmpopup";
 import { useRef } from "react";
 import { classNames } from "primereact/utils";
+import { useNavigate } from "react-router-dom";
 
 const DashboardPage = () => {
+  const nav = useNavigate();
   const toast = useRef(null);
   const [show, setShow] = useState("home");
 
-  const btnClickHandler = (e) => {
-    const name = e.currentTarget.getAttribute("name");
-    setShow(name);
+  const logOutClickHandler = () => {
+    localStorage.removeItem("auth");
+    nav("/auth/token/obtain");
   };
 
   const onClickHandler = (event) => {
-    console.log(toast.current);
     confirmPopup({
       target: event.currentTarget,
       footer: <></>,
@@ -33,7 +33,10 @@ const DashboardPage = () => {
           <ButtonComponent className="w-full block rounded text-[11px] bg-white border-primary text-primary border font-poppins font-semibold">
             Update Profile
           </ButtonComponent>
-          <ButtonComponent className="w-full block rounded text-[11px] bg-primary font-poppins font-semibold">
+          <ButtonComponent
+            onClick={logOutClickHandler}
+            className="w-full block rounded text-[11px] bg-primary font-poppins font-semibold"
+          >
             Logout
           </ButtonComponent>
         </div>
@@ -42,8 +45,8 @@ const DashboardPage = () => {
   };
 
   const iconClickHandler = (e) => {
-    e.stopPropagation();
-    btnClickHandler(e);
+    const name = e.currentTarget.getAttribute("name");
+    setShow(name);
   };
 
   return (
@@ -51,10 +54,10 @@ const DashboardPage = () => {
       logic={!localStorage.getItem("auth")}
       to="/auth/token/obtain"
     >
-      <div className="relative h-screen">
-        <ContainerComponent className="p-4 pb-2">
-          {show !== "profile" && (
-            <>
+      <div className="relative h-screen overflow-hidden">
+        {show !== "profile" && (
+          <>
+            <ContainerComponent className="p-4 pb-2 bg-red-500">
               <Toast className="w-fit" ref={toast} />
               <ConfirmPopup
                 className="w-fit"
@@ -64,56 +67,46 @@ const DashboardPage = () => {
                 }}
               />
               <div className="flex justify-start items-center">
-                <Button
+                <ButtonComponent
                   onClick={onClickHandler}
-                  className="shadow-none border-none outline-none w-fit p-0 bg-transparent rounded-full"
+                  className="p-0 w-fit h-fit"
                 >
-                  <Avvvatars onClick={onClickHandler} value="John Doe" />
-                </Button>
+                  <Avvvatars value="John Doe" />
+                </ButtonComponent>
               </div>
-            </>
-          )}
-        </ContainerComponent>
+            </ContainerComponent>
+          </>
+        )}
         {show === "home" && <HomeComponent />}
         {show === "wallet" && <WalletComponent />}
         {show === "profile" && <ProfileComponent />}
       </div>
 
-      <div className="absolute bottom-0 px-4 w-full">
-        <div className="flex justify-evenly items-center pb-2 gap-[4px]">
-          <Button
-            onClick={btnClickHandler}
+      <div className="absolute bottom-0 px-4 w-full py-3 bg-white">
+        <div className="flex justify-evenly items-center gap-[4px]">
+          <i
+            onClick={iconClickHandler}
             name="home"
-            className="bg-transparent w-full text-gray-500 flex justify-center shadow-none p-3 border-none focus-visible:text-primary focus-within:text-primary hover:text-primary rounded-none"
-          >
-            <i
-              onClick={iconClickHandler}
-              name="home"
-              className="pi pi-home text-[20px] text-center"
-            ></i>
-          </Button>
-          <Button
-            onClick={btnClickHandler}
+            className={`${
+              show === "home" && "text-primary"
+            } pi pi-home text-[20px] text-center p-3 hover:cursor-pointer`}
+          ></i>
+
+          <i
             name="wallet"
-            className="bg-transparent w-full text-gray-500 flex justify-center shadow-none p-3 border-none focus-visible:text-primary focus-within:text-primary hover:text-primary rounded-none"
-          >
-            <i
-              name="wallet"
-              onClick={iconClickHandler}
-              className="pi pi-wallet text-[20px] text-center"
-            ></i>
-          </Button>
-          <Button
-            onClick={btnClickHandler}
+            onClick={iconClickHandler}
+            className={`pi ${
+              show === "wallet" && "text-primary"
+            }  pi-wallet text-[20px] text-center p-3 hover:cursor-pointer`}
+          ></i>
+
+          <i
             name="profile"
-            className="bg-transparent w-full text-gray-500 flex justify-center shadow-none p-3 border-none focus-visible:text-primary focus-within:text-primary hover:text-primary rounded-none"
-          >
-            <i
-              name="profile"
-              onClick={iconClickHandler}
-              className="pi pi-user text-[20px] text-center"
-            ></i>
-          </Button>
+            onClick={iconClickHandler}
+            className={`${
+              show === "profile" && "text-primary"
+            } pi pi-user text-[20px] text-center p-3 hover:cursor-pointer`}
+          ></i>
         </div>
       </div>
     </ProtectedRouteComponent>

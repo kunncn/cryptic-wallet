@@ -35,7 +35,6 @@ const LoginPage = () => {
     validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       const res = await mutate(values);
-      console.log(res.error);
       if (res.error) {
         toast.current?.show({
           severity: "error",
