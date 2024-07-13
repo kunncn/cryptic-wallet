@@ -1,4 +1,5 @@
 import Avvvatars from "avvvatars-react";
+import { Skeleton } from "primereact/skeleton";
 import {
   ButtonComponent,
   ContainerComponent,
@@ -7,22 +8,31 @@ import {
   ProtectedRouteComponent,
   WalletComponent,
 } from "../components";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Toast } from "primereact/toast";
 import { confirmPopup, ConfirmPopup } from "primereact/confirmpopup";
-import { useRef } from "react";
 import { classNames } from "primereact/utils";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { cryptoWalletApi } from "../services/api";
+import { useTokenVerifyQuery } from "../services/endpoints/auth.endpoints";
 
 const DashboardPage = () => {
   const nav = useNavigate();
+  const dispatch = useDispatch();
   const toast = useRef(null);
   const [show, setShow] = useState("home");
+  const { isLoading: tokenVerifyLoading, data: tokenVerifyData } =
+    useTokenVerifyQuery();
 
   const logOutClickHandler = () => {
-    localStorage.removeItem("auth");
+    localStorage.clear();
     nav("/auth/token/obtain");
   };
+
+  useEffect(() => {
+    return () => dispatch(cryptoWalletApi.util.resetApiState());
+  }, [dispatch]);
 
   const onClickHandler = (event) => {
     confirmPopup({
@@ -57,7 +67,7 @@ const DashboardPage = () => {
       <div className="relative h-screen overflow-hidden">
         {show !== "profile" && (
           <>
-            <ContainerComponent className="p-4 pb-2 bg-red-500">
+            <ContainerComponent className="p-4 pb-2">
               <Toast className="w-fit" ref={toast} />
               <ConfirmPopup
                 className="w-fit"
@@ -69,9 +79,13 @@ const DashboardPage = () => {
               <div className="flex justify-start items-center">
                 <ButtonComponent
                   onClick={onClickHandler}
-                  className="p-0 w-fit h-fit"
+                  className="p-0 w-fit h-fit bg-transparent"
                 >
-                  <Avvvatars value="John Doe" />
+                  {tokenVerifyLoading ? (
+                    <Skeleton shape="circle" size="32px" />
+                  ) : (
+                    <Avvvatars value={tokenVerifyData?.username} />
+                  )}
                 </ButtonComponent>
               </div>
             </ContainerComponent>
@@ -87,25 +101,23 @@ const DashboardPage = () => {
           <i
             onClick={iconClickHandler}
             name="home"
-            className={`${
+            className={`pi pi-home text-[20px] text-center p-3 hover:cursor-pointer ${
               show === "home" && "text-primary"
-            } pi pi-home text-[20px] text-center p-3 hover:cursor-pointer`}
+            }`}
           ></i>
-
           <i
             name="wallet"
             onClick={iconClickHandler}
-            className={`pi ${
+            className={`pi pi-wallet text-[20px] text-center p-3 hover:cursor-pointer ${
               show === "wallet" && "text-primary"
-            }  pi-wallet text-[20px] text-center p-3 hover:cursor-pointer`}
+            }`}
           ></i>
-
           <i
             name="profile"
             onClick={iconClickHandler}
-            className={`${
+            className={`pi pi-user text-[20px] text-center p-3 hover:cursor-pointer ${
               show === "profile" && "text-primary"
-            } pi pi-user text-[20px] text-center p-3 hover:cursor-pointer`}
+            }`}
           ></i>
         </div>
       </div>

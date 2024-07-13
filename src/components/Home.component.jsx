@@ -5,7 +5,7 @@ import Avvvatars from "avvvatars-react";
 const HomeComponent = () => {
   return (
     <>
-      <ContainerComponent className="px-4 py-2 bg-blue-500">
+      <ContainerComponent className="px-4 py-2 ">
         <div>
           <div className=" flex justify-between items-center">
             <div className="flex flex-col gap-[2px]">
@@ -28,7 +28,7 @@ const HomeComponent = () => {
           </div>
         </div>
       </ContainerComponent>
-      <ContainerComponent className="px-4 py-2 bg-lime-500 h-[74%] overflow-y-scroll">
+      <ContainerComponent className="px-4 py-2  h-[74%] scrollbar-y-hide overflow-y-scroll">
         <div className="flex flex-col gap-[10px]">
           <h1 className="font-poppins text-[14px] text-gray-500">
             Transactions History
