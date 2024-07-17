@@ -12,7 +12,6 @@ const authEndPoint = cryptoWalletApi.injectEndpoints({
     login: build.mutation({
       query: (data) => ({
         url: "/auth/token/obtain/",
-
         method: "POST",
         body: data,
       }),
@@ -22,11 +21,29 @@ const authEndPoint = cryptoWalletApi.injectEndpoints({
         url: "/auth/token/verify/",
         method: "GET",
       }),
-      providesTags: ["Auth"],
+    }),
+    requestOtp: build.mutation({
+      query: (data) => ({
+        url: "/auth/request-otp/",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    requestPassword: build.mutation({
+      query: (data) => ({
+        url: "/auth/reset-password/",
+        method: "POST",
+        body: data,
+      }),
     }),
   }),
   overrideExisting: false,
 });
 
-export const { useLoginMutation, useRegisterMutation, useTokenVerifyQuery } =
-  authEndPoint;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useTokenVerifyQuery,
+  useRequestOtpMutation,
+  useRequestPasswordMutation,
+} = authEndPoint;

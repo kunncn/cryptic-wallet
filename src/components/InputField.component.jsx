@@ -3,7 +3,7 @@ import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
 import Label from "./Label.component";
 
-const InputField = ({ formik, name, type = "text" }) => {
+const InputField = ({ formik, name, type = "text", value }) => {
   const [touched, setTouched] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -30,7 +30,7 @@ const InputField = ({ formik, name, type = "text" }) => {
           type={showPassword ? "text" : type}
           onChange={formik.handleChange}
           onBlur={handleBlur}
-          value={formik.values[name]}
+          value={(formik.values[name] = value || formik.values[name])}
           aria-describedby={`${name}-help`}
         />
         {type === "password" && (

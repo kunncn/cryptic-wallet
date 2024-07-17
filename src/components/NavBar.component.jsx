@@ -43,17 +43,14 @@ const NavBarComponent = () => {
             </div>
             <div className="md:flex items-center">
               <div className="md:flex hidden ms-auto me-[100px]">
-                <a
-                  href="#features"
-                  className="font-poppins font-bold text-[15px]"
-                >
+                <a href="#features" className=" font-bold text-[15px]">
                   Features
                 </a>
               </div>
               <div className="md:flex hidden gap-[30px]">
                 <ButtonComponent
                   onClick={() => nav("/auth/token/obtain")}
-                  className="bg-secondary text-black hover:bg-[#ebebeb] border-primary font-poppins text-[15px] font-bold tracking-wider"
+                  className="bg-secondary text-black hover:bg-[#ebebeb] border-primary  text-[15px] font-bold tracking-wider"
                 >
                   Sign in
                 </ButtonComponent>
@@ -68,7 +65,7 @@ const NavBarComponent = () => {
             <div className="md:hidden flex items-center scale-[0.85]">
               <ButtonComponent
                 onClick={() => nav("/auth/register")}
-                className="mr-4 bg-primary hover:bg-[#014CEC] font-poppins text-[16px] font-bold tracking-wider"
+                className="mr-4 bg-primary hover:bg-[#014CEC]  text-[16px] font-bold tracking-wider"
               >
                 Register
               </ButtonComponent>
@@ -97,13 +94,13 @@ const NavBarComponent = () => {
                   <a
                     onClick={toggleMenu}
                     href="#features"
-                    className="font-poppins font-bold text-[15px] mb-4 w-full text-center"
+                    className=" font-bold text-[15px] mb-4 w-full text-center"
                   >
                     Features
                   </a>
                   <ButtonComponent
                     onClick={() => nav("/auth/token/obtain")}
-                    className="w-full bg-secondary text-black hover:bg-[#ebebeb] border-primary font-poppins text-[16px] font-bold tracking-wider mb-4 rounded-lg flex justify-center md:block"
+                    className="w-full bg-secondary text-black hover:bg-[#ebebeb] border-primary  text-[16px] font-bold tracking-wider mb-4 rounded-lg flex justify-center md:block"
                   >
                     Sign in
                   </ButtonComponent>

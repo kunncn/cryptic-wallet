@@ -18,15 +18,15 @@ const HeroSection = () => {
             />
           </div>
           <div className="hero-mobile:max-w-[500px] hero-tablet:max-w-[900px] hero-desktop:max-w-[500px] hero-desktop:ml-4 flex flex-col hero-mobile:gap-[10px] hero-desktop:gap-[20px] hero-mobile:items-center hero-desktop:items-start">
-            <h1 className=" hero-mobile:text-[29px]  hero-desktop:text-[49px] hero-h1 font-poppins hero-mobile:text-center hero-desktop:text-left hero-mobile:leading-[40px] hero-desktop:leading-[60px]">
+            <h1 className=" hero-mobile:text-[29px]  hero-desktop:text-[49px] hero-h1  hero-mobile:text-center hero-desktop:text-left hero-mobile:leading-[40px] hero-desktop:leading-[60px]">
               Your Trusted TRC-20{" "}
               <span className="text-primary font-mono font-bold">Cryptic</span>{" "}
               <span className="font-mono font-bold">Wallet</span>
             </h1>
-            <h2 className="font-poppins hero-mobile:text-[18px] hero-desktop:text-[22px] text-center hero-desktop:text-left">
+            <h2 className=" hero-mobile:text-[18px] hero-desktop:text-[22px] text-center hero-desktop:text-left">
               Secure, Simple, and Smart
             </h2>
-            <p className="font-poppins hero-mobile:text-[14px] hero-desktop:text-[19px] text-center hero-desktop:text-left hero-mobile:max-w-[340px] hero-tablet:max-w-[400px] hero-desktop:max-w-[500px]">
+            <p className=" hero-mobile:text-[14px] hero-desktop:text-[19px] text-center hero-desktop:text-left hero-mobile:max-w-[340px] hero-tablet:max-w-[400px] hero-desktop:max-w-[500px]">
               Manage your TRC-20 tokens effortlessly with our user-friendly app.
               Create transactions, track your history, and keep your tokens safe
               in a secure wallet. Join us and experience the future of digital

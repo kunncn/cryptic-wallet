@@ -8,7 +8,7 @@ const Label = ({ formik, name }) => {
   return (
     <label
       className={classNames(
-        "font-poppins font-semibold text-[12px]",
+        " font-semibold text-[12px]",
         touched[name] && errors[name] ? "text-red-500" : "text-black"
       )}
       htmlFor={name}

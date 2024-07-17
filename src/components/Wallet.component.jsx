@@ -11,6 +11,15 @@ import { Tag } from "primereact/tag";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 
+const handleCreateWallet = async (createWallet) => {
+  const res = await createWallet();
+  res?.data && localStorage.setItem("created", true);
+};
+const formatBalance = (balance) => {
+  const numericBalance = parseFloat(balance);
+  return isNaN(numericBalance) ? "0.0" : numericBalance.toFixed(1);
+};
+
 const WalletComponent = () => {
   const [inputValue, setInputValue] = useState("");
   const [copied, setCopied] = useState(false);
@@ -19,18 +28,11 @@ const WalletComponent = () => {
     error: walletDetailError,
     data: walletDetailData,
     isLoading: walletDetailLoading,
-    isFetching: walletDetailFetching,
     refetch: refetchWalletDetail,
   } = useWalletDetailQuery();
 
   const [createWallet, { isLoading: createWalletLoading }] =
     useCreateWalletMutation();
-
-  const handleCreateWallet = async () => {
-    await createWallet();
-  };
-
-  console.log("walletDetailLoading", walletDetailLoading);
 
   useEffect(() => {
     if (walletDetailData) {
@@ -42,24 +44,19 @@ const WalletComponent = () => {
     }
   }, [walletDetailData, copied]);
 
-  const formatBalance = (balance) => {
-    const numericBalance = parseFloat(balance);
-    return isNaN(numericBalance) ? "0.0" : numericBalance.toFixed(1);
-  };
-
   return (
     <>
       {walletDetailError && (
         <div className="px-4 py-2 mx-auto max-w-[1350px] h-[84%] scrollbar-y-hide overflow-y-scroll flex flex-col justify-center items-center">
           <div className="flex flex-col gap-[10px] items-center justify-center">
-            <h1 className="font-poppins text-[20px] text-black">
-              No Wallet Found
-            </h1>
+            <h1 className=" text-[20px] text-black">No Wallet Found</h1>
             <Button
               className={classNames(
                 "bg-primary scale-90 shadow-none outline-none flex justify-center w-fit px-[15px]"
               )}
-              onClick={handleCreateWallet}
+              onClick={() => {
+                handleCreateWallet(createWallet);
+              }}
               disabled={createWalletLoading}
             >
               {createWalletLoading ? "Creating Wallet..." : "Create Wallet"}
@@ -77,13 +74,13 @@ const WalletComponent = () => {
           <div className="w-full max-w-[300px]">
             <div className="relative w-[80%] mx-auto flex flex-col gap-[5px]">
               <div className="flex justify-between items-center text-[16px]">
-                <p className="font-poppins me-1 text-gray-500">Address:</p>
+                <p className=" me-1 text-gray-500">Address:</p>
                 <input
                   disabled={true}
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  className="flex-1 font-poppins font-semibold truncate outline-none bg-blue-100 p-1 rounded-md"
+                  className="flex-1  font-semibold truncate outline-none bg-blue-100 p-1 rounded-md"
                 />
                 <CopyToClipboard
                   text={inputValue}
@@ -111,10 +108,8 @@ const WalletComponent = () => {
                 </CopyToClipboard>
               </div>
               <div className="flex justify-between items-center">
-                <p className="text-center font-poppins text-gray-500">
-                  Balance:
-                </p>
-                <p className="text-center font-poppins font-semibold mx-auto">
+                <p className="text-center  text-gray-500">Balance:</p>
+                <p className="text-center  font-semibold mx-auto">
                   {formatBalance(walletDetailData.balance)}
                 </p>
               </div>

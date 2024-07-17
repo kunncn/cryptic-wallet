@@ -29,12 +29,9 @@ const FormComponent = () => {
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className={classNames(
-              "font-poppins text-black hero-input h-fit w-full",
-              {
-                "p-invalid": formik.touched.email && formik.errors.email,
-              }
-            )}
+            className={classNames(" text-black hero-input h-fit w-full", {
+              "p-invalid": formik.touched.email && formik.errors.email,
+            })}
           />
           <div className="absolute top-full ">
             {formik.touched.email && formik.errors.email ? (

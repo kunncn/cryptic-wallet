@@ -7,3 +7,5 @@ export { default as ProtectedRouteComponent } from "./ProtectedRoute.component";
 export { default as HomeComponent } from "./Home.component";
 export { default as WalletComponent } from "./Wallet.component";
 export { default as ProfileComponent } from "./Profile.component";
+export { default as ResetPasswordComponent } from "./ResetPassword.component";
+export { default as RequestOtpComponent } from "./RequestOtp.component";

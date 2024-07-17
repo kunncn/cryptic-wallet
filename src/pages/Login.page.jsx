@@ -85,10 +85,10 @@ const LoginPage = () => {
               className="md:w-25rem"
             >
               <div className="flex flex-col gap-[15px] mb-[25px]">
-                <h1 className="font-poppins text-[27px] text-center text-black font-bold">
+                <h1 className=" text-[27px] text-center text-black font-bold">
                   Login Form
                 </h1>
-                <h2 className="font-poppins font-bold text-[13px] text-black text-center">
+                <h2 className=" font-bold text-[13px] text-black text-center">
                   Complete Your Info to signin your Account.
                 </h2>
               </div>
@@ -114,15 +114,21 @@ const LoginPage = () => {
                   ></i>
                   Submit
                 </ButtonComponent>
-                <p className="text-[13px] font-poppins text-black text-center">
+                <p className="text-[13px]  text-black text-center">
                   If you don't have an account?{" "}
                   <Link
                     to="/auth/register"
-                    className="text-primary font-poppins font-semibold text-[13px] underline"
+                    className="text-primary  font-semibold text-[13px] underline"
                   >
                     Register
                   </Link>
                 </p>
+                <Link
+                  to="/auth/reset-password"
+                  className="text-primary  font-semibold text-[12px] underline text-center"
+                >
+                  Forgot Password?
+                </Link>
               </form>
             </Card>
           </ContainerComponent>

@@ -5,60 +5,61 @@ import ButtonComponent from "../components/Button.component";
 import ContainerComponent from "../components/Container.component";
 import PageTransitionComponent from "../components/PageTransition.component";
 import { classNames } from "primereact/utils";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import InputField from "../components/InputField.component";
 import { Toast } from "primereact/toast";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProtectedRouteComponent } from "../components";
-import { useRegisterMutation } from "../services/endpoints/auth.endpoints";
+import logo from "../assets/logo.png";
+import { useRequestPasswordMutation } from "../services/endpoints/auth.endpoints";
 
 const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
-  username: Yup.string()
-    .min(2, "Username must be at least 2 characters")
-    .required("Username is required"),
+  otp: Yup.string()
+    .min(6, "OTP must be at least 6 characters")
+    .max(6, "Invalid OTP")
+    .required("OTP is required"),
   password: Yup.string()
     .min(4, "Password must be at least 4 characters")
     .required("Password is required"),
 });
 
-const RegisterPage = () => {
-  const [mutate, { isLoading, error, data }] = useRegisterMutation();
+const ResetPasswordComponent = ({ setShowOtp, email }) => {
   const nav = useNavigate();
+  const [mutate, { isLoading, error, data }] = useRequestPasswordMutation();
   const toast = useRef(null);
-  const location = useLocation();
-  const email = location.state?.email || "";
 
   const formik = useFormik({
     initialValues: {
-      email,
-      username: "",
+      email: "",
+      otp: "",
       password: "",
     },
     validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       const res = await mutate(values);
+      console.log(res);
       if (res.error) {
         toast.current?.show({
           severity: "error",
-          summary: "Registration Failed",
-          detail:
-            res.error.data?.message ||
-            "Your registration failed. Please try again.",
+          summary: "Password Reset Failed",
+          detail: res.error.data?.message,
           life: 5000,
         });
       }
       if (res.data) {
         toast.current?.show({
           severity: "success",
-          summary: "Registration Successful",
-          detail: "You have registered successfully.",
+          summary: "Password Reset Successful",
+          detail: "Password has been reset successfully.",
           life: 1500,
         });
-        setTimeout(() => nav("/auth/token/obtain"), 1800);
+        setTimeout(() => {
+          nav("/auth/token/obtain");
+        }, 1800);
       }
       setSubmitting(false);
     },
@@ -92,42 +93,49 @@ const RegisterPage = () => {
             >
               <div className="flex flex-col gap-[15px] mb-[25px]">
                 <h1 className=" text-[27px] text-center text-black font-bold">
-                  Register Form
+                  <Link to="/">
+                    <img
+                      src={logo}
+                      alt="cryptic wallet logo"
+                      className="w-[290px] block mx-auto"
+                    />
+                  </Link>
                 </h1>
-                <h2 className=" font-bold text-[13px] text-black text-center">
-                  Complete Your Info to create your Account.
+                <h2 className=" font-semibold text-[13px] text-gray-500">
+                  Enter the Email address associated with your account and we'll
+                  send you a OTP to reset your password.
                 </h2>
               </div>
               <form
                 onSubmit={formik.handleSubmit}
                 className="flex flex-col gap-[13px]"
               >
-                <InputField formik={formik} name="email" />
-                <InputField formik={formik} name="username" />
+                <InputField formik={formik} name="email" value={email} />
+                <InputField formik={formik} name="otp" />
                 <InputField formik={formik} name="password" type="password" />
                 <ButtonComponent
                   type="submit"
-                  disabled={isLoading}
+                  disabled={formik.isSubmitting}
                   className={`w-full blue-btn rounded-lg flex justify-center md:block shadow-none border-none outline-none p-button p-component mt-[15px] p-button-rounded p-button-sm ${
-                    !formik.isValid ? "pointer-events-none" : ""
+                    formik.isValid ? "" : "pointer-events-none"
                   }`}
                 >
                   <i
                     className={
-                      isLoading
+                      formik.isSubmitting
                         ? "pi pi-spinner text-[15px] me-2 animate-spin"
                         : undefined
                     }
                   ></i>
-                  Submit
+                  Continue
                 </ButtonComponent>
                 <p className="text-[13px]  text-black text-center">
-                  If you already have an account?{" "}
+                  If you don't have an account?{" "}
                   <Link
-                    to="/auth/token/obtain"
+                    to="/auth/register"
                     className="text-primary  font-semibold text-[13px] underline"
                   >
-                    Login
+                    Register
                   </Link>
                 </p>
               </form>
@@ -139,4 +147,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default ResetPasswordComponent;
