@@ -41,7 +41,6 @@ const ResetPasswordComponent = ({ setShowOtp, email }) => {
     validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       const res = await mutate(values);
-      console.log(res);
       if (res.error) {
         toast.current?.show({
           severity: "error",
@@ -130,12 +129,12 @@ const ResetPasswordComponent = ({ setShowOtp, email }) => {
                   Continue
                 </ButtonComponent>
                 <p className="text-[13px]  text-black text-center">
-                  If you don't have an account?{" "}
+                  Remember your password?{" "}
                   <Link
-                    to="/auth/register"
+                    to="/auth/token/obtain"
                     className="text-primary  font-semibold text-[13px] underline"
                   >
-                    Register
+                    Login
                   </Link>
                 </p>
               </form>

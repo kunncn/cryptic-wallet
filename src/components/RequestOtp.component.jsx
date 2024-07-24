@@ -21,6 +21,7 @@ const validationSchema = Yup.object({
 });
 
 const RequestOtpComponent = ({ setShowOtp, setEmail }) => {
+  const nav = useNavigate();
   const [mutate, { isLoading, error, data }] = useRequestOtpMutation();
   const toast = useRef(null);
 
@@ -81,7 +82,14 @@ const RequestOtpComponent = ({ setShowOtp, setEmail }) => {
               }}
               className="md:w-25rem"
             >
-              <div className="flex flex-col gap-[15px] mb-[25px]">
+              <div className="flex flex-col gap-[15px] mb-[25px] relative">
+                <Link
+                  onClick={() => nav(-1)}
+                  to="/"
+                  className="absolute left-0 top-0"
+                >
+                  <i className="pi pi-arrow-left text-[13px] text-center p-3 bg-gray-100 rounded-full"></i>
+                </Link>
                 <h1 className=" text-[27px] text-center text-black font-bold">
                   <Link to="/">
                     <img
@@ -117,15 +125,6 @@ const RequestOtpComponent = ({ setShowOtp, setEmail }) => {
                   ></i>
                   Continue
                 </ButtonComponent>
-                <p className="text-[13px]  text-black text-center">
-                  If you don't have an account?{" "}
-                  <Link
-                    to="/auth/register"
-                    className="text-primary  font-semibold text-[13px] underline"
-                  >
-                    Register
-                  </Link>
-                </p>
               </form>
             </Card>
           </ContainerComponent>

@@ -84,7 +84,14 @@ const LoginPage = () => {
               }}
               className="md:w-25rem"
             >
-              <div className="flex flex-col gap-[15px] mb-[25px]">
+              <div className="flex flex-col gap-[15px] mb-[25px] relative">
+                <Link
+                  onClick={() => nav(-1)}
+                  to="/"
+                  className="absolute left-0 top-0"
+                >
+                  <i className="pi pi-arrow-left text-[13px] text-center p-3 bg-gray-100 rounded-full"></i>
+                </Link>
                 <h1 className=" text-[27px] text-center text-black font-bold">
                   Login Form
                 </h1>
@@ -125,7 +132,7 @@ const LoginPage = () => {
                 </p>
                 <Link
                   to="/auth/reset-password"
-                  className="text-primary  font-semibold text-[12px] underline text-center"
+                  className="text-primary  font-semibold text-[12px] underline mx-auto w-fit block"
                 >
                   Forgot Password?
                 </Link>
