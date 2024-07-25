@@ -19,6 +19,11 @@ const NavBarComponent = () => {
     }
   };
 
+  const onClickHandler = (nav) => {
+    setIsOpen(false);
+    nav("/auth/register");
+  };
+
   useEffect(() => {
     const handleDocumentClick = (event) => handleClickOutside(event);
     document.addEventListener("mousedown", handleDocumentClick);
@@ -107,7 +112,7 @@ const NavBarComponent = () => {
                   <ButtonComponent
                     onClick={() => {
                       toggleMenu();
-                      onClickHandler();
+                      onClickHandler(nav);
                     }}
                     className="w-full blue-btn rounded-lg flex justify-center md:block"
                   >

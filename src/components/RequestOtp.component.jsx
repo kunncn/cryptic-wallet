@@ -73,7 +73,7 @@ const RequestOtpComponent = ({ setShowOtp, setEmail }) => {
               pt={{
                 body: {
                   className: classNames(
-                    "hero-mobile:px-[10px] hero-tablet:px-[20px] hero-tablet:py-[10px] hero-mobile:w-full hero-tablet:w-[400px]"
+                    "hero-tablet:px-[20px] hero-tablet:py-[10px] hero-mobile:w-full hero-tablet:w-[400px]"
                   ),
                 },
                 root: {
