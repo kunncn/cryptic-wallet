@@ -80,7 +80,7 @@ const WalletComponent = () => {
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  className="flex-1  font-semibold truncate outline-none bg-blue-100 p-1 rounded-md"
+                  className="flex-1 w-full font-semibold truncate outline-none bg-blue-100 p-1 rounded-md"
                 />
                 <CopyToClipboard
                   text={inputValue}

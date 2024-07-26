@@ -44,7 +44,7 @@ const FormComponent = () => {
           </div>
         </div>
         <ButtonComponent
-          className={`blue-btn px-6 scale-110 hero-mobile:w-full hero-desktop:w-auto hero-mobile:justify-center   ${
+          className={`blue-btn px-6 hero-mobile:w-full hero-desktop:w-auto hero-mobile:justify-center   ${
             !formik.isValid && "pointer-events-none"
           }`}
           rounded={false}
