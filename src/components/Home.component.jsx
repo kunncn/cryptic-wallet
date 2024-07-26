@@ -9,7 +9,7 @@ const HomeComponent = () => {
     data: walletDetailData,
     isLoading: walletDetailLoading,
     refetch: refetchWalletDetail,
-  } = useWalletDetailQuery();
+  } = useWalletDetailQuery(null, { skip: !localStorage.getItem("auth") });
 
   return (
     <>

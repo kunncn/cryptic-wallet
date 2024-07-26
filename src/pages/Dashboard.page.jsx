@@ -57,7 +57,7 @@ const DashboardPage = () => {
   const dispatch = useDispatch();
   const [show, setShow] = useState("home");
   const { isLoading: tokenVerifyLoading, data: tokenVerifyData } =
-    useTokenVerifyQuery();
+    useTokenVerifyQuery(null, { skip: !localStorage.getItem("auth") });
 
   useEffect(() => {
     return () => dispatch(cryptoWalletApi.util.resetApiState());
