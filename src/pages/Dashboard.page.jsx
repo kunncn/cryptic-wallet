@@ -22,26 +22,6 @@ const logOutClickHandler = (nav) => {
   nav("/auth/token/obtain");
 };
 
-const onClickHandler = (event, nav) => {
-  confirmPopup({
-    target: event.currentTarget,
-    footer: <></>,
-    message: (
-      <div className="flex flex-col gap-1">
-        <ButtonComponent className="w-full block rounded text-[11px] bg-white border-primary text-primary border font-semibold">
-          Update Profile
-        </ButtonComponent>
-        <ButtonComponent
-          onClick={() => logOutClickHandler(nav)}
-          className="w-full block rounded text-[11px] bg-primary font-semibold"
-        >
-          Logout
-        </ButtonComponent>
-      </div>
-    ),
-  });
-};
-
 const IconComponent = ({ name, show, setShow }) => (
   <i
     onClick={() => setShow(name)}
@@ -80,10 +60,7 @@ const DashboardPage = () => {
               }}
             />
             <div className="flex justify-start items-center">
-              <ButtonComponent
-                onClick={(event) => onClickHandler(event, nav)}
-                className="p-0 w-fit h-fit bg-transparent"
-              >
+              <ButtonComponent className="p-0 w-fit h-fit bg-transparent">
                 {tokenVerifyLoading ? (
                   <Skeleton shape="circle" size="32px" />
                 ) : (
