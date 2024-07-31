@@ -19,7 +19,8 @@ const ProfileComponent = () => {
 
     setTimeout(() => {
       localStorage.clear();
-      nav("/auth/token/obtain");
+      localStorage.setItem("logout", true);
+      nav("/auth/token/obtain", { replace: true });
     }, 1400);
   };
 
@@ -40,11 +41,11 @@ const ProfileComponent = () => {
         <ConfirmDialog
           pt={{
             acceptButton: {
-              className: "blue-btn shadow-none",
+              className: "blue-btn shadow-none ",
             },
             rejectButton: {
               root: {
-                className: "text-primary",
+                className: classNames("hidden text-primary"),
               },
             },
           }}

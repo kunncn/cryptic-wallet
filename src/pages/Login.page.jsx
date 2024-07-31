@@ -51,9 +51,10 @@ const LoginPage = () => {
           life: 1500,
         });
         const token = res.data.access;
+        localStorage.clear();
         localStorage.setItem("auth", token);
         localStorage.setItem("login", true);
-        setTimeout(() => nav("/dashboard"), 1800);
+        setTimeout(() => nav("/dashboard", { replace: true }), 1800);
       }
       setSubmitting(false);
     },
@@ -89,7 +90,7 @@ const LoginPage = () => {
                 <Link
                   onClick={() => nav(-1)}
                   to="/"
-                  className="absolute left-0 top-0"
+                  className={`absolute left-0 top-0`}
                 >
                   <i className="pi pi-arrow-left text-[13px] text-center p-3 bg-gray-100 rounded-full"></i>
                 </Link>

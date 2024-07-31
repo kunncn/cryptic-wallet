@@ -5,7 +5,7 @@ const ProtectedRouteComponent = ({ logic, to, children }) => {
   const nav = useNavigate();
   useEffect(() => {
     if (logic) {
-      nav(to);
+      nav(to, { replace: true });
     }
   }, []);
   return children;

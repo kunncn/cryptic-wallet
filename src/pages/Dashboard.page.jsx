@@ -30,9 +30,24 @@ const IconComponent = ({ name, show, setShow }) => (
 const DashboardPage = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
-  const [show, setShow] = useState("user"); // default is home
+  const [show, setShow] = useState("user");
   const { isLoading: tokenVerifyLoading, data: tokenVerifyData } =
     useTokenVerifyQuery(null, { skip: !localStorage.getItem("auth") });
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      console.log("object");
+      localStorage.clear();
+
+      localStorage.setItem("logout", "true");
+
+      nav("/auth/token/obtain", { replace: true });
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, [nav]);
 
   useEffect(() => {
     return () => dispatch(cryptoWalletApi.util.resetApiState());
