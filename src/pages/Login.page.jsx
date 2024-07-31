@@ -39,7 +39,7 @@ const LoginPage = () => {
         toast.current?.show({
           severity: "error",
           summary: "Registration Failed",
-          detail: res.error.data?.detail,
+          detail: res.error.data?.detail || "Something went wrong.",
           life: 5000,
         });
       }
@@ -52,6 +52,7 @@ const LoginPage = () => {
         });
         const token = res.data.access;
         localStorage.setItem("auth", token);
+        localStorage.setItem("login", true);
         setTimeout(() => nav("/dashboard"), 1800);
       }
       setSubmitting(false);
@@ -103,8 +104,13 @@ const LoginPage = () => {
                 onSubmit={formik.handleSubmit}
                 className="flex flex-col gap-[13px]"
               >
-                <InputField formik={formik} name="email" />
-                <InputField formik={formik} name="password" type="password" />
+                <InputField formik={formik} name="email" id={"loginEmail"} />
+                <InputField
+                  formik={formik}
+                  name="password"
+                  type="password"
+                  id={"loginPassword"}
+                />
                 <ButtonComponent
                   type="submit"
                   disabled={formik.isSubmitting}

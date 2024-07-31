@@ -8,7 +8,7 @@ const ProtectedRouteComponent = ({ logic, to, children }) => {
       nav(to);
     }
   }, []);
-  return <>{children}</>;
+  return children;
 };
 
 export default ProtectedRouteComponent;

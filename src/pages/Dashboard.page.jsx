@@ -17,11 +17,6 @@ import {
   WalletComponent,
 } from "../components";
 
-const logOutClickHandler = (nav) => {
-  localStorage.clear();
-  nav("/auth/token/obtain");
-};
-
 const IconComponent = ({ name, show, setShow }) => (
   <i
     onClick={() => setShow(name)}
@@ -35,7 +30,7 @@ const IconComponent = ({ name, show, setShow }) => (
 const DashboardPage = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
-  const [show, setShow] = useState("home");
+  const [show, setShow] = useState("user"); // default is home
   const { isLoading: tokenVerifyLoading, data: tokenVerifyData } =
     useTokenVerifyQuery(null, { skip: !localStorage.getItem("auth") });
 
@@ -45,31 +40,27 @@ const DashboardPage = () => {
 
   return (
     <ProtectedRouteComponent
-      logic={!localStorage.getItem("auth")}
+      logic={!localStorage.getItem("login")}
       to="/auth/token/obtain"
     >
       <div className="relative h-screen overflow-hidden">
-        {show !== "user" && (
-          <ContainerComponent className="p-4 pb-2">
-            <Toast className="w-fit" />
-            <ConfirmPopup
-              className="w-fit"
-              pt={{
-                content: classNames("p-[10px] w-fit"),
-                message: classNames("m-0 w-fit"),
-              }}
-            />
-            <div className="flex justify-start items-center">
-              <ButtonComponent className="p-0 w-fit h-fit bg-transparent">
-                {tokenVerifyLoading ? (
-                  <Skeleton shape="circle" size="32px" />
-                ) : (
-                  <Avvvatars value={tokenVerifyData?.username} />
-                )}
-              </ButtonComponent>
-            </div>
-          </ContainerComponent>
-        )}
+        <ContainerComponent className="p-4 pb-2">
+          <Toast className="w-fit" />
+          <ConfirmPopup
+            className="w-fit"
+            pt={{
+              content: classNames("p-[10px] w-fit"),
+              message: classNames("m-0 w-fit"),
+            }}
+          />
+          <div className="flex justify-start items-center">
+            {tokenVerifyLoading ? (
+              <Skeleton shape="circle" size="32px" />
+            ) : (
+              <Avvvatars value={tokenVerifyData?.username} />
+            )}
+          </div>
+        </ContainerComponent>
         {show === "home" && <HomeComponent />}
         {show === "wallet" && <WalletComponent />}
         {show === "user" && <ProfileComponent />}

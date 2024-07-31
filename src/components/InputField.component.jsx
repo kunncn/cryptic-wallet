@@ -3,11 +3,11 @@ import { InputText } from "primereact/inputtext";
 import { classNames } from "primereact/utils";
 import Label from "./Label.component";
 
-const InputField = ({ formik, name, type = "text", value }) => {
+const InputField = ({ formik, name, type = "text", value, id }) => {
   const [touched, setTouched] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleBlur = () => {
+  const handleBlur = (event) => {
     setTouched(true);
     formik.handleBlur(event);
   };
@@ -22,10 +22,10 @@ const InputField = ({ formik, name, type = "text", value }) => {
       <div className="relative">
         <InputText
           className={classNames(
-            "border-gray-400 hero-input w-full",
+            "border-gray-400 hero-input w-full", // id
             touched && formik.errors[name] ? "border-red-500" : ""
           )}
-          id={name}
+          id={id}
           name={name}
           type={showPassword ? "text" : type}
           onChange={formik.handleChange}

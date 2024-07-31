@@ -109,9 +109,23 @@ const ResetPasswordComponent = ({ setShowOtp, email }) => {
                 onSubmit={formik.handleSubmit}
                 className="flex flex-col gap-[13px]"
               >
-                <InputField formik={formik} name="email" value={email} />
-                <InputField formik={formik} name="otp" />
-                <InputField formik={formik} name="password" type="password" />
+                <InputField
+                  formik={formik}
+                  name="email"
+                  value={email}
+                  id={"resetPasswordEmail"}
+                />
+                <InputField
+                  formik={formik}
+                  name="otp"
+                  id={"resetPasswordOtp"}
+                />
+                <InputField
+                  formik={formik}
+                  name="password"
+                  type="password"
+                  id={"resetPasswordPassword"}
+                />
                 <ButtonComponent
                   type="submit"
                   disabled={formik.isSubmitting}

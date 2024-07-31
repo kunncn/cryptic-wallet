@@ -4,7 +4,7 @@ import transaction from "../assets/transaction.webp";
 
 const FeaturesSection = () => {
   return (
-    <PageTransitionComponent>
+    <PageTransitionComponent >
       <ContainerComponent className="hero-desktop:mt-[70px]">
         <div className="p-6">
           <h1 id="features" className=" font-bold text-center text-[32px] mb-6">

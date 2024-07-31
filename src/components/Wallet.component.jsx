@@ -29,7 +29,6 @@ const WalletComponent = () => {
     error: walletDetailError,
     data: walletDetailData,
     isLoading: walletDetailLoading,
-    refetch: refetchWalletDetail,
   } = useWalletDetailQuery();
 
   const [createWallet, { isLoading: createWalletLoading }] =

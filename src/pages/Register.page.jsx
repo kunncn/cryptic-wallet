@@ -109,9 +109,18 @@ const RegisterPage = () => {
                 onSubmit={formik.handleSubmit}
                 className="flex flex-col gap-[13px]"
               >
-                <InputField formik={formik} name="email" />
-                <InputField formik={formik} name="username" />
-                <InputField formik={formik} name="password" type="password" />
+                <InputField formik={formik} name="email" id={"registerEmail"} />
+                <InputField
+                  formik={formik}
+                  name="username"
+                  id={"registerUsername"}
+                />
+                <InputField
+                  formik={formik}
+                  name="password"
+                  type="password"
+                  id={"registerPassword"}
+                />
                 <ButtonComponent
                   type="submit"
                   disabled={isLoading}

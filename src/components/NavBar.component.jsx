@@ -30,10 +30,17 @@ const NavBarComponent = () => {
     return () => document.removeEventListener("mousedown", handleDocumentClick);
   }, [isOpen]);
 
+  const customTransition = {
+    initial: { opacity: 0, y: -50 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -50 },
+    transition: { duration: 0.3 },
+  };
+
   return (
     <>
       <ContainerComponent>
-        <PageTransitionComponent>
+        <PageTransitionComponent customTransition={customTransition}>
           <div className="relative flex justify-between items-center p-6">
             <div>
               <Link to="/">

@@ -108,7 +108,11 @@ const RequestOtpComponent = ({ setShowOtp, setEmail }) => {
                 onSubmit={formik.handleSubmit}
                 className="flex flex-col gap-[13px]"
               >
-                <InputField formik={formik} name="email" />
+                <InputField
+                  formik={formik}
+                  name="email"
+                  id={"requestOtpEmail"}
+                />
                 <ButtonComponent
                   type="submit"
                   disabled={formik.isSubmitting}
