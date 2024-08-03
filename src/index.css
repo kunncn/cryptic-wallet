@@ -39,7 +39,6 @@ html {
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scrollbar-y-hide::-webkit-scrollbar {
     display: none;
-    
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
@@ -48,6 +47,30 @@ html {
     /* IE and Edge */
     scrollbar-width: none;
     /* Firefox */
+}
+
+.p-datepicker-month:hover,
+.p-datepicker-year:hover {
+    @apply text-primary
+}
+
+.p-monthpicker-month:focus {
+    box-shadow: 0 0 0 0.2rem hsl(221, 99%, 73%);
+}
+
+.p-datepicker:not(.p-disabled) .p-yearpicker .p-yearpicker-year:not(.p-disabled):focus {
+    box-shadow: 0 0 0 0.2rem hsl(221, 99%, 73%);
+}
+
+.p-datepicker table td>span:focus {
+    box-shadow: 0 0 0 0.2rem hsl(221, 99%, 73%);
+}
+
+.p-datepicker table td>span.p-highlight {
+    color: #014CEC;
+    background-color: hsl(183, 100%, 96%);
+    ;
+
 }
 
 * {

@@ -1,26 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  balance: 0,
+  username: "",
+  date_of_birth: "",
 };
 
-export const userSlice = createSlice({
-  name: "user",
+export const userInfoSlice = createSlice({
+  name: "userInfo",
   initialState,
   reducers: {
-    setBalance: (state, { payload }) => {
-      state.balance = payload;
+    setUserName: (state, { payload }) => {
+      state.username = payload;
     },
-    // decrement: (state) => {
-    //   state.balance -= 1;
-    // },
-    // incrementByAmount: (state, action) => {
-    //   state.balance += action.payload;
-    // },
+    setDateOfBirth: (state, { payload }) => {
+      state.date_of_birth = payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setBalance } = userSlice.actions;
+export const { setUserName, setDateOfBirth } = userInfoSlice.actions;
 
-export default userSlice.reducer;
+export default userInfoSlice.reducer;

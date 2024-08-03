@@ -1,21 +1,21 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Toast } from "primereact/toast";
 import { Skeleton } from "primereact/skeleton";
-import { confirmPopup, ConfirmPopup } from "primereact/confirmpopup";
+import { ConfirmPopup } from "primereact/confirmpopup";
 import { classNames } from "primereact/utils";
 import Avvvatars from "avvvatars-react";
 import { cryptoWalletApi } from "../services/api";
 import { useTokenVerifyQuery } from "../services/endpoints/auth.endpoints";
 import {
-  ButtonComponent,
   ContainerComponent,
   HomeComponent,
   ProfileComponent,
   ProtectedRouteComponent,
   WalletComponent,
 } from "../components";
+import { setDateOfBirth, setUserName } from "../features/userSlice";
 
 const IconComponent = ({ name, show, setShow }) => (
   <i
@@ -30,9 +30,18 @@ const IconComponent = ({ name, show, setShow }) => (
 const DashboardPage = () => {
   const nav = useNavigate();
   const dispatch = useDispatch();
-  const [show, setShow] = useState("user");
+  const [show, setShow] = useState("home");
   const { isLoading: tokenVerifyLoading, data: tokenVerifyData } =
     useTokenVerifyQuery(null, { skip: !localStorage.getItem("auth") });
+
+  console.log(tokenVerifyData);
+
+  useEffect(() => {
+    if (tokenVerifyData) {
+      dispatch(setUserName(tokenVerifyData.username));
+      dispatch(setDateOfBirth(tokenVerifyData.date_of_birth));
+    }
+  });
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -70,9 +79,9 @@ const DashboardPage = () => {
           />
           <div className="flex justify-start items-center">
             {tokenVerifyLoading ? (
-              <Skeleton shape="circle" size="32px" />
+              <Skeleton shape="circle" size="37px" />
             ) : (
-              <Avvvatars value={tokenVerifyData?.username} />
+              <Avvvatars size={37} value={tokenVerifyData?.username} />
             )}
           </div>
         </ContainerComponent>
