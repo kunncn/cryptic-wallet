@@ -6,16 +6,14 @@ import {
   useCreateWalletMutation,
 } from "../services/endpoints/wallet.endpoint";
 import { classNames } from "primereact/utils";
-import { FadeLoader } from "react-spinners";
 import { Tag } from "primereact/tag";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 import { Skeleton } from "primereact/skeleton";
+import notWalletFound from "../assets/wallet-not-found.svg";
+import { useRef } from "react";
+import { Toast } from "primereact/toast";
 
-const handleCreateWallet = async (createWallet) => {
-  const res = await createWallet();
-  res?.data && localStorage.setItem("created", true);
-};
 const formatBalance = (balance) => {
   const numericBalance = parseFloat(balance);
   return isNaN(numericBalance) ? "0.0" : numericBalance.toFixed(1);
@@ -24,6 +22,7 @@ const formatBalance = (balance) => {
 const WalletComponent = () => {
   const [inputValue, setInputValue] = useState("");
   const [copied, setCopied] = useState(false);
+  const toast = useRef(null);
 
   const {
     error: walletDetailError,
@@ -44,11 +43,26 @@ const WalletComponent = () => {
     }
   }, [walletDetailData, copied]);
 
+  const handleCreateWallet = async (createWallet) => {
+    const res = await createWallet();
+    if (res?.data) {
+      localStorage.setItem("created", true);
+      toast.current.show({
+        severity: "info",
+        summary: "Info",
+        detail: "Wallet Created Successfully",
+        life: 1500,
+      });
+    }
+  };
+
   return (
     <>
+      <Toast position="top-center" ref={toast} />
       {walletDetailError && (
         <div className="px-4 py-2 mx-auto max-w-[1350px] h-[84%] scrollbar-y-hide overflow-y-scroll flex flex-col justify-center items-center">
           <div className="flex flex-col gap-[10px] items-center justify-center">
+            <img src={notWalletFound} alt="not wallet found" />
             <h1 className=" text-[20px] text-black">No Wallet Found</h1>
             <Button
               className={classNames(
