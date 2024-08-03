@@ -1,37 +1,30 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { confirmDialog, ConfirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 import ButtonComponent from "./Button.component";
 import { classNames } from "primereact/utils";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { useSelector } from "react-redux";
 import { Calendar } from "primereact/calendar";
-import { useEffect } from "react";
 import { useUpdateProfileMutation } from "../services/endpoints/profile.endpoints";
-import { setUserName } from "../features/userSlice";
+
 const ProfileComponent = () => {
   const calendarRef = useRef(null);
   const toast = useRef(null);
   const nav = useNavigate();
   const [username, setUserName] = useState(null);
-  const [dateOfBirth, setDateOfBirth] = useState(null);
-  const [visible, setVisible] = useState(false);
   const [date, setDate] = useState(null);
+  const [visible, setVisible] = useState(false);
   const userName = useSelector((state) => state.userInfo.username);
   const dob = useSelector((state) => state.userInfo.date_of_birth);
   const [mutate, { isLoading, error, data }] = useUpdateProfileMutation();
-  const d = useSelector((state) => state.userInfo);
-  console.log(d);
-  console.log(calendarRef.current);
 
   useEffect(() => {
-    console.log(dateOfBirth);
     setUserName(userName);
-    setDate(dob);
-  }, [userName, dateOfBirth]);
+    setDate(new Date(dob));
+  }, [userName, dob]);
 
   const accept = () => {
     toast.current.show({
@@ -59,8 +52,6 @@ const ProfileComponent = () => {
   };
 
   const updateProfileHandler = async () => {
-    // Convert the date to the local timezone, then format it to YYYY-MM-DD
-    console.log(date);
     const formattedDate = date
       ? new Date(date.getTime() - date.getTimezoneOffset() * 60000)
           .toISOString()
@@ -84,7 +75,7 @@ const ProfileComponent = () => {
         life: 1500,
       });
       setUserName(username);
-      setDateOfBirth(date);
+      setDate(new Date(dob));
       setVisible(false);
     }
   };
@@ -119,16 +110,12 @@ const ProfileComponent = () => {
           draggable={false}
           header="Update Your Information"
           visible={visible}
-          onHide={() => {
-            if (!visible) return;
-            setVisible(false);
-          }}
+          onHide={() => setVisible(false)}
         >
-          {/* here */}
           <div className="flex flex-col gap-3">
             <div className="flex justify-between items-center gap-4">
               <p className="text-[13px] text-gray-500 text-nowrap">
-                User Name:{" "}
+                User Name:
               </p>
               <div className="w-full">
                 <InputText
@@ -142,12 +129,14 @@ const ProfileComponent = () => {
             </div>
             <div className="flex justify-between items-center gap-4">
               <p className="text-[13px] text-gray-500 text-nowrap">
-                Date Of Birth:{" "}
+                Date Of Birth:
               </p>
               <div className="w-full">
                 <Calendar
                   ref={calendarRef}
                   dateFormat="yy/mm/dd"
+                  value={date}
+                  onChange={(e) => setDate(e.value)}
                   pt={{
                     input: {
                       root: {
@@ -157,12 +146,11 @@ const ProfileComponent = () => {
                       },
                     },
                   }}
-                  onChange={(e) => setDate(e.value)}
                 />
               </div>
             </div>
             <ButtonComponent
-              disabled={!(username || date)}
+              disabled={!username || !date}
               onClick={updateProfileHandler}
               className={`blue-btn hero-mobile:w-full hero-desktop:w-auto hero-mobile:justify-center rounded-md ms-auto max-w-fit py-2 px-4 ${
                 isLoading && "cursor-not-allowed"
@@ -170,7 +158,6 @@ const ProfileComponent = () => {
             >
               Save
             </ButtonComponent>
-            {/* stop */}
           </div>
         </Dialog>
         <ButtonComponent
