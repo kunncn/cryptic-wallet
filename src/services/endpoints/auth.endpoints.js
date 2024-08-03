@@ -21,6 +21,7 @@ const authEndPoint = cryptoWalletApi.injectEndpoints({
         url: "/auth/token/verify/",
         method: "GET",
       }),
+      providesTags: ["Profile"],
     }),
     requestOtp: build.mutation({
       query: (data) => ({

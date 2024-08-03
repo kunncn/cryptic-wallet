@@ -150,7 +150,7 @@ const ProfileComponent = () => {
               </div>
             </div>
             <ButtonComponent
-              disabled={!username || !date}
+              disabled={!username || !date || isLoading}
               onClick={updateProfileHandler}
               className={`blue-btn hero-mobile:w-full hero-desktop:w-auto hero-mobile:justify-center rounded-md ms-auto max-w-fit py-2 px-4 ${
                 isLoading && "cursor-not-allowed"
