@@ -66,8 +66,8 @@ const DashboardPage = () => {
       logic={!localStorage.getItem("login")}
       to="/auth/token/obtain"
     >
-      <div className="h-screen overflow-hidden">
-        <ContainerComponent className="p-4 pb-2 ">
+      <div className="h-screen flex flex-col  overflow-hidden">
+        <div className="p-4 pb-2 me-auto">
           <Toast className="w-fit" />
           <ConfirmPopup
             className="w-fit"
@@ -83,7 +83,7 @@ const DashboardPage = () => {
               <Avvvatars size={37} value={tokenVerifyData?.username} />
             )}
           </div>
-        </ContainerComponent>
+        </div>
         {show === "home" && <HomeComponent />}
         {show === "wallet" && <WalletComponent />}
         {show === "user" && <ProfileComponent />}

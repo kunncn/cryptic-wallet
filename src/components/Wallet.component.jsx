@@ -75,63 +75,65 @@ const WalletComponent = () => {
             >
               {createWalletLoading ? "Creating Wallet..." : "Create Wallet"}
             </Button>
-          </div>  
+          </div>
         </div>
       )}
-      <div className="px-4 py-2 mx-auto max-w-[1350px] h-[84%] scrollbar-y-hide overflow-y-scroll flex justify-center items-center h-testing">
-        <div className="w-full max-w-[300px]">
-          <div className="relative w-[80%] mx-auto flex flex-col gap-[5px]">
-            <div className="flex justify-between items-center text-[16px]">
-              <p className=" me-1 text-gray-500">Address:</p>
-              {walletDetailLoading && <Skeleton height="30px" width="100%" />}
-              {walletDetailData && (
-                <>
-                  <input
-                    disabled={true}
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    className="flex-1 w-full font-semibold truncate outline-none bg-blue-100 p-1 rounded-md"
-                  />
-                  <CopyToClipboard
-                    text={inputValue}
-                    onCopy={() => setCopied(true)}
-                  >
-                    <span className="absolute top-[7px] right-[-25px]">
-                      <i className="pi pi-copy text-[20px] relative hover:cursor-pointer text-gray-500 hover:text-black duration-100">
-                        {copied && (
-                          <AnimatePresence>
-                            <motion.div
-                              initial={{ opacity: 0 }}
-                              exit={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              transition={{ duration: 0.1 }}
-                            >
-                              <Tag
-                                value="Copied"
-                                className="bg-primary absolute top-[-37px] right-[-17px] scale-75"
-                              ></Tag>
-                            </motion.div>
-                          </AnimatePresence>
-                        )}
-                      </i>
-                    </span>
-                  </CopyToClipboard>
-                </>
-              )}
-            </div>
-            <div className="flex justify-between items-center">
-              <p className="text-center  text-gray-500">Balance:</p>
-              {walletDetailLoading && <Skeleton height="30px" width="100%" />}
-              {walletDetailData && (
-                <p className="text-center  font-semibold mx-auto">
-                  {formatBalance(walletDetailData.balance)}
-                </p>
-              )}
+      {!walletDetailError && (
+        <div className="px-4 py-2 mx-auto max-w-[1350px] h-[84%] scrollbar-y-hide overflow-y-scroll flex justify-center items-center h-testing">
+          <div className="w-full max-w-[300px]">
+            <div className="relative w-[80%] mx-auto flex flex-col gap-[5px]">
+              <div className="flex justify-between items-center text-[16px]">
+                <p className=" me-1 text-gray-500">Address:</p>
+                {walletDetailLoading && <Skeleton height="30px" width="100%" />}
+                {walletDetailData && (
+                  <>
+                    <input
+                      disabled={true}
+                      type="text"
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      className="flex-1 w-full font-semibold truncate outline-none bg-blue-100 p-1 rounded-md"
+                    />
+                    <CopyToClipboard
+                      text={inputValue}
+                      onCopy={() => setCopied(true)}
+                    >
+                      <span className="absolute top-[7px] right-[-25px]">
+                        <i className="pi pi-copy text-[20px] relative hover:cursor-pointer text-gray-500 hover:text-black duration-100">
+                          {copied && (
+                            <AnimatePresence>
+                              <motion.div
+                                initial={{ opacity: 0 }}
+                                exit={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.1 }}
+                              >
+                                <Tag
+                                  value="Copied"
+                                  className="bg-primary absolute top-[-37px] right-[-17px] scale-75"
+                                ></Tag>
+                              </motion.div>
+                            </AnimatePresence>
+                          )}
+                        </i>
+                      </span>
+                    </CopyToClipboard>
+                  </>
+                )}
+              </div>
+              <div className="flex justify-between items-center">
+                <p className="text-center  text-gray-500">Balance:</p>
+                {walletDetailLoading && <Skeleton height="30px" width="100%" />}
+                {walletDetailData && (
+                  <p className="text-center  font-semibold mx-auto">
+                    {formatBalance(walletDetailData.balance)}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

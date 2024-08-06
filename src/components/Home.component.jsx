@@ -77,17 +77,9 @@ const HomeComponent = () => {
 
   return (
     <>
-      <ContainerComponent className="px-4 py-2">
+      <div className="px-4 py-2">
         <div>
           <Toast position="top-center" ref={toast} />
-
-          {!isOnline && (
-            <div className="flex justify-center items-center p-4 bg-yellow-200 text-yellow-800">
-              You are currently offline. Some features may not be available.
-            </div>
-          )}
-
-          {/* Send Crypto Dialog */}
           <Dialog
             dismissableMask={true}
             className="w-[95%] max-w-[300px] bg-white"
@@ -105,7 +97,7 @@ const HomeComponent = () => {
                     value={cryptoAddress}
                     onChange={(e) => setCryptoAddress(e.target.value)}
                     className="p-1 shadow-none border-gray-500 w-full truncate"
-                    placeholder="Enter crypto address"
+                    placeholder="enter crypto address"
                   />
                 </div>
               </div>
@@ -117,7 +109,7 @@ const HomeComponent = () => {
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     className="p-1 shadow-none border-gray-500 w-full"
-                    placeholder="Enter amount"
+                    placeholder="enter amount"
                   />
                 </div>
               </div>
@@ -193,8 +185,8 @@ const HomeComponent = () => {
             </div>
           </div>
         </div>
-      </ContainerComponent>
-      <ContainerComponent className="px-4 py-2 scrollbar-y-hide overflow-y-scroll flex flex-col bg-red-300">
+      </div>
+      <div className="px-4 py-2 scrollbar-y-hide overflow-y-scroll flex flex-col">
         <div className="flex flex-col gap-[10px]">
           <h1 className="text-[14px] text-gray-500">Transactions History</h1>
           <div className="flex flex-col gap-[10px]">
@@ -216,9 +208,213 @@ const HomeComponent = () => {
                 </div>
               </div>
             </div>
+            <div className="flex justify-between items-center gap-[10px] bg-gray-50 rounded-sm p-[10px]">
+              <div>
+                <Avvvatars value="John Doe" size={32} />
+              </div>
+              <div className="max-w-max min-w-[100px]">
+                <p className="text-[10px] text-gray-500">Recipient</p>
+                <p className="text-[10px] text-gray-500 truncate">
+                  TQfutVkuRVTLSWDkwF117mKEyUniTnBbgc
+                </p>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[10px] text-gray-500">Amount</p>
+                  <p className="text-[10px] text-gray-500">0.01</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between items-center gap-[10px] bg-gray-50 rounded-sm p-[10px]">
+              <div>
+                <Avvvatars value="John Doe" size={32} />
+              </div>
+              <div className="max-w-max min-w-[100px]">
+                <p className="text-[10px] text-gray-500">Recipient</p>
+                <p className="text-[10px] text-gray-500 truncate">
+                  TQfutVkuRVTLSWDkwF117mKEyUniTnBbgc
+                </p>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[10px] text-gray-500">Amount</p>
+                  <p className="text-[10px] text-gray-500">0.01</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between items-center gap-[10px] bg-gray-50 rounded-sm p-[10px]">
+              <div>
+                <Avvvatars value="John Doe" size={32} />
+              </div>
+              <div className="max-w-max min-w-[100px]">
+                <p className="text-[10px] text-gray-500">Recipient</p>
+                <p className="text-[10px] text-gray-500 truncate">
+                  TQfutVkuRVTLSWDkwF117mKEyUniTnBbgc
+                </p>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[10px] text-gray-500">Amount</p>
+                  <p className="text-[10px] text-gray-500">0.01</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between items-center gap-[10px] bg-gray-50 rounded-sm p-[10px]">
+              <div>
+                <Avvvatars value="John Doe" size={32} />
+              </div>
+              <div className="max-w-max min-w-[100px]">
+                <p className="text-[10px] text-gray-500">Recipient</p>
+                <p className="text-[10px] text-gray-500 truncate">
+                  TQfutVkuRVTLSWDkwF117mKEyUniTnBbgc
+                </p>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[10px] text-gray-500">Amount</p>
+                  <p className="text-[10px] text-gray-500">0.01</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between items-center gap-[10px] bg-gray-50 rounded-sm p-[10px]">
+              <div>
+                <Avvvatars value="John Doe" size={32} />
+              </div>
+              <div className="max-w-max min-w-[100px]">
+                <p className="text-[10px] text-gray-500">Recipient</p>
+                <p className="text-[10px] text-gray-500 truncate">
+                  TQfutVkuRVTLSWDkwF117mKEyUniTnBbgc
+                </p>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[10px] text-gray-500">Amount</p>
+                  <p className="text-[10px] text-gray-500">0.01</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between items-center gap-[10px] bg-gray-50 rounded-sm p-[10px]">
+              <div>
+                <Avvvatars value="John Doe" size={32} />
+              </div>
+              <div className="max-w-max min-w-[100px]">
+                <p className="text-[10px] text-gray-500">Recipient</p>
+                <p className="text-[10px] text-gray-500 truncate">
+                  TQfutVkuRVTLSWDkwF117mKEyUniTnBbgc
+                </p>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[10px] text-gray-500">Amount</p>
+                  <p className="text-[10px] text-gray-500">0.01</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between items-center gap-[10px] bg-gray-50 rounded-sm p-[10px]">
+              <div>
+                <Avvvatars value="John Doe" size={32} />
+              </div>
+              <div className="max-w-max min-w-[100px]">
+                <p className="text-[10px] text-gray-500">Recipient</p>
+                <p className="text-[10px] text-gray-500 truncate">
+                  TQfutVkuRVTLSWDkwF117mKEyUniTnBbgc
+                </p>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[10px] text-gray-500">Amount</p>
+                  <p className="text-[10px] text-gray-500">0.01</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between items-center gap-[10px] bg-gray-50 rounded-sm p-[10px]">
+              <div>
+                <Avvvatars value="John Doe" size={32} />
+              </div>
+              <div className="max-w-max min-w-[100px]">
+                <p className="text-[10px] text-gray-500">Recipient</p>
+                <p className="text-[10px] text-gray-500 truncate">
+                  TQfutVkuRVTLSWDkwF117mKEyUniTnBbgc
+                </p>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[10px] text-gray-500">Amount</p>
+                  <p className="text-[10px] text-gray-500">0.01</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between items-center gap-[10px] bg-gray-50 rounded-sm p-[10px]">
+              <div>
+                <Avvvatars value="John Doe" size={32} />
+              </div>
+              <div className="max-w-max min-w-[100px]">
+                <p className="text-[10px] text-gray-500">Recipient</p>
+                <p className="text-[10px] text-gray-500 truncate">
+                  TQfutVkuRVTLSWDkwF117mKEyUniTnBbgc
+                </p>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[10px] text-gray-500">Amount</p>
+                  <p className="text-[10px] text-gray-500">0.01</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between items-center gap-[10px] bg-gray-50 rounded-sm p-[10px]">
+              <div>
+                <Avvvatars value="John Doe" size={32} />
+              </div>
+              <div className="max-w-max min-w-[100px]">
+                <p className="text-[10px] text-gray-500">Recipient</p>
+                <p className="text-[10px] text-gray-500 truncate">
+                  TQfutVkuRVTLSWDkwF117mKEyUniTnBbgc
+                </p>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[10px] text-gray-500">Amount</p>
+                  <p className="text-[10px] text-gray-500">0.01</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between items-center gap-[10px] bg-gray-50 rounded-sm p-[10px]">
+              <div>
+                <Avvvatars value="John Doe" size={32} />
+              </div>
+              <div className="max-w-max min-w-[100px]">
+                <p className="text-[10px] text-gray-500">Recipient</p>
+                <p className="text-[10px] text-gray-500 truncate">
+                  TQfutVkuRVTLSWDkwF117mKEyUniTnBbgc
+                </p>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[10px] text-gray-500">Amount</p>
+                  <p className="text-[10px] text-gray-500">0.01</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between items-center gap-[10px] bg-gray-50 rounded-sm p-[10px]">
+              <div>
+                <Avvvatars value="John Doe" size={32} />
+              </div>
+              <div className="max-w-max min-w-[100px]">
+                <p className="text-[10px] text-gray-500">Recipient</p>
+                <p className="text-[10px] text-gray-500 truncate">
+                  TQfutVkuRVTLSWDkwF117mKEyUniTnBbgc
+                </p>
+              </div>
+              <div>
+                <div>
+                  <p className="text-[10px] text-gray-500">Amount</p>
+                  <p className="text-[10px] text-gray-500">0.01</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </ContainerComponent>
+      </div>
     </>
   );
 };

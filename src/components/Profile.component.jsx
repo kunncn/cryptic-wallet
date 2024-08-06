@@ -81,7 +81,7 @@ const ProfileComponent = () => {
   };
 
   return (
-    <div className="px-4 py-2 mx-auto max-w-[1350px] h-[84%] scrollbar-y-hide overflow-y-scroll flex flex-col justify-start gap-2">
+    <div className="px-4 py-2 max-w-[1350px] h-[84%] scrollbar-y-hide overflow-y-scroll flex flex-col justify-start gap-2">
       <>
         <Toast position="top-center" ref={toast} />
         <ConfirmDialog
@@ -123,7 +123,7 @@ const ProfileComponent = () => {
                   value={username}
                   onChange={(e) => setUserName(e.target.value)}
                   className="p-1 shadow-none border-gray-500 w-full hover:border-primary active:border-primary"
-                  placeholder="Update name"
+                  placeholder="update name"
                 />
               </div>
             </div>
