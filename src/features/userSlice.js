@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   username: "",
   date_of_birth: "",
+  address: "",
 };
 
 export const userInfoSlice = createSlice({
@@ -15,10 +16,14 @@ export const userInfoSlice = createSlice({
     setDateOfBirth: (state, { payload }) => {
       state.date_of_birth = payload;
     },
+    setAddress: (state, { payload }) => {
+      state.address = payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setUserName, setDateOfBirth } = userInfoSlice.actions;
+export const { setUserName, setDateOfBirth, setAddress } =
+  userInfoSlice.actions;
 
 export default userInfoSlice.reducer;

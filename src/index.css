@@ -73,6 +73,14 @@ html {
 
 }
 
+.h-80dvh {
+    height: 80dvh;
+}
+
+.h-70dvh {
+    height: 70dvh;
+}
+
 * {
     /* outline: 1px solid red; */
 }

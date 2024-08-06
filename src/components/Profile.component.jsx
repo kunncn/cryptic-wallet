@@ -123,7 +123,7 @@ const ProfileComponent = () => {
                   value={username}
                   onChange={(e) => setUserName(e.target.value)}
                   className="p-1 shadow-none border-gray-500 w-full hover:border-primary active:border-primary"
-                  placeholder="Update your name"
+                  placeholder="Update name"
                 />
               </div>
             </div>
@@ -135,8 +135,9 @@ const ProfileComponent = () => {
                 <Calendar
                   ref={calendarRef}
                   dateFormat="yy/mm/dd"
-                  value={date}
+                  value={dob === null ? null : date}
                   onChange={(e) => setDate(e.value)}
+                  placeholder="update dob"
                   pt={{
                     input: {
                       root: {

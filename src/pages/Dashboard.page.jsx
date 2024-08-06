@@ -34,7 +34,7 @@ const DashboardPage = () => {
   const { isLoading: tokenVerifyLoading, data: tokenVerifyData } =
     useTokenVerifyQuery(null, { skip: !localStorage.getItem("auth") });
 
-  console.log(tokenVerifyData);
+  // console.log(tokenVerifyData);
 
   useEffect(() => {
     if (tokenVerifyData) {
@@ -45,7 +45,6 @@ const DashboardPage = () => {
 
   useEffect(() => {
     const handleStorageChange = () => {
-      console.log("object");
       localStorage.clear();
 
       localStorage.setItem("logout", "true");
@@ -67,8 +66,8 @@ const DashboardPage = () => {
       logic={!localStorage.getItem("login")}
       to="/auth/token/obtain"
     >
-      <div className="relative h-screen overflow-hidden">
-        <ContainerComponent className="p-4 pb-2">
+      <div className="h-screen overflow-hidden">
+        <ContainerComponent className="p-4 pb-2 ">
           <Toast className="w-fit" />
           <ConfirmPopup
             className="w-fit"
@@ -88,13 +87,12 @@ const DashboardPage = () => {
         {show === "home" && <HomeComponent />}
         {show === "wallet" && <WalletComponent />}
         {show === "user" && <ProfileComponent />}
-      </div>
-
-      <div className="absolute bottom-0 px-4 w-full py-3 bg-white">
-        <div className="flex justify-evenly items-center gap-[4px]">
-          <IconComponent name="home" show={show} setShow={setShow} />
-          <IconComponent name="wallet" show={show} setShow={setShow} />
-          <IconComponent name="user" show={show} setShow={setShow} />
+        <div className="px-4 w-full py-3 bg-white mt-auto">
+          <div className="flex justify-evenly items-center gap-[4px]">
+            <IconComponent name="home" show={show} setShow={setShow} />
+            <IconComponent name="wallet" show={show} setShow={setShow} />
+            <IconComponent name="user" show={show} setShow={setShow} />
+          </div>
         </div>
       </div>
     </ProtectedRouteComponent>
