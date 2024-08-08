@@ -9,10 +9,11 @@ import { classNames } from "primereact/utils";
 import { Tag } from "primereact/tag";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
-import { Skeleton } from "primereact/skeleton";
 import notWalletFound from "../assets/wallet-not-found.svg";
 import { useRef } from "react";
 import { Toast } from "primereact/toast";
+
+import { Skeleton } from "primereact/skeleton";
 
 const formatBalance = (balance) => {
   const numericBalance = parseFloat(balance);
@@ -84,7 +85,9 @@ const WalletComponent = () => {
             <div className="relative w-[80%] mx-auto flex flex-col gap-[5px]">
               <div className="flex justify-between items-center text-[16px]">
                 <p className=" me-1 text-gray-500">Address:</p>
-                {walletDetailLoading && <Skeleton height="30px" width="100%" />}
+                {walletDetailLoading && (
+                  <Skeleton height="30px" width="200px" />
+                )}
                 {walletDetailData && (
                   <>
                     <input

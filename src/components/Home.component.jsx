@@ -23,9 +23,7 @@ const HomeComponent = () => {
   const [amount, setAmount] = useState("");
   const dispatch = useDispatch();
   const address = useSelector((state) => state.userInfo.address);
-  const [receiveAddress, setReceiveAddress] = useState(
-    "YourGeneratedCryptoAddress"
-  );
+  const [receiveAddress, setReceiveAddress] = useState("");
   const { data: walletDetailData, isLoading: walletDetailLoading } =
     useWalletDetailQuery(null, { skip: !localStorage.getItem("auth") });
   const [postTransaction, { isLoading: postTransactionLoading }] =
@@ -39,21 +37,22 @@ const HomeComponent = () => {
   }, [walletDetailData, dispatch, address]);
 
   const transferHandler = async () => {
-    try {
-      const res = await postTransaction({
-        recipient: cryptoAddress,
-        amount: Number(amount),
-      });
+    const res = await postTransaction({
+      recipient: cryptoAddress,
+      amount: Number(amount),
+    });
+
+    if (!res?.error) {
       toast.current.show({
         severity: "success",
         summary: "Success",
         detail: "Transaction Successful",
         life: 1300,
       });
-      setVisible(false);
-    } catch (error) {
-      console.error(error);
+      setTimeout(() => setVisible(false), 1500);
+    }
 
+    if (res?.error) {
       let errorMessage = "An unexpected error occurred";
       let severity = "error";
 
@@ -186,9 +185,11 @@ const HomeComponent = () => {
           </div>
         </div>
       </div>
+      <div className="px-4 py-2">
+        <h1 className="text-[14px] text-gray-500">Transactions History</h1>
+      </div>
       <div className="px-4 py-2 scrollbar-y-hide overflow-y-scroll flex flex-col">
         <div className="flex flex-col gap-[10px]">
-          <h1 className="text-[14px] text-gray-500">Transactions History</h1>
           <div className="flex flex-col gap-[10px]">
             <h1 className="text-[13px] text-black">12/12/2022</h1>
             <div className="flex justify-between items-center gap-[10px] bg-gray-50 rounded-sm p-[10px]">
