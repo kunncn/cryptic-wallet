@@ -80,7 +80,7 @@ const WalletComponent = () => {
         </div>
       )}
       {!walletDetailError && (
-        <div className="px-4 py-2 mx-auto max-w-[1350px] h-[84%] scrollbar-y-hide overflow-y-scroll flex justify-center items-center h-testing">
+        <div className="px-4 py-2 mx-auto max-w-[1350px] scrollbar-y-hide overflow-y-scroll flex flex-grow justify-center items-center h-testing">
           <div className="w-full max-w-[300px]">
             <div className="relative w-[80%] mx-auto flex flex-col gap-[5px]">
               <div className="flex justify-between items-center text-[16px]">

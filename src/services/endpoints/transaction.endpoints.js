@@ -10,8 +10,16 @@ const transactionEndPoint = cryptoWalletApi.injectEndpoints({
       }),
       invalidatesTags: ["Wallet"],
     }),
+    getTransactionHistory: build.query({
+      query: () => ({
+        url: "/trc-20/transaction/history/",
+        method: "GET",
+      }),
+      providesTags: ["Wallet"],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { usePostTransactionMutation } = transactionEndPoint;
+export const { usePostTransactionMutation, useGetTransactionHistoryQuery } =
+  transactionEndPoint;

@@ -9,3 +9,4 @@ export { default as WalletComponent } from "./Wallet.component";
 export { default as ProfileComponent } from "./Profile.component";
 export { default as ResetPasswordComponent } from "./ResetPassword.component";
 export { default as RequestOtpComponent } from "./RequestOtp.component";
+export { default as TransactionComponent } from "./Transaction.component";

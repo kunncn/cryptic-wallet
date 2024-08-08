@@ -9,11 +9,10 @@ import Avvvatars from "avvvatars-react";
 import { cryptoWalletApi } from "../services/api";
 import { useTokenVerifyQuery } from "../services/endpoints/auth.endpoints";
 import {
-  ContainerComponent,
   HomeComponent,
   ProfileComponent,
   ProtectedRouteComponent,
-  WalletComponent,
+  WalletComponent
 } from "../components";
 import { setDateOfBirth, setUserName } from "../features/userSlice";
 
@@ -33,8 +32,6 @@ const DashboardPage = () => {
   const [show, setShow] = useState("home");
   const { isLoading: tokenVerifyLoading, data: tokenVerifyData } =
     useTokenVerifyQuery(null, { skip: !localStorage.getItem("auth") });
-
-  // console.log(tokenVerifyData);
 
   useEffect(() => {
     if (tokenVerifyData) {

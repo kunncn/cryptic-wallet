@@ -7,6 +7,7 @@ const walletEndPoint = cryptoWalletApi.injectEndpoints({
         url: "/trc-20/wallet/",
         method: "POST",
       }),
+      invalidatesTags: ["Wallet"],
     }),
     walletDetail: build.query({
       query: () => ({
