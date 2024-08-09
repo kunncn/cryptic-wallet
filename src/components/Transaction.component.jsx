@@ -97,8 +97,11 @@ const TransactionComponent = () => {
   if (isSuccess) {
     if (transactionHistory?.length === 0) {
       return (
-        <div className="flex justify-center text-center items-center text-[18px] h-full">
-          <h1 className="text-gray-500">You don't have any transactions</h1>
+        <div className="flex flex-col justify-center text-center items-center text-[18px] h-full">
+          <h1 className="text-gray-500 text-[15px]">Wallet Created</h1>
+          <h1 className="text-gray-500 text-[15px]">
+            You don't have any transactions
+          </h1>
         </div>
       );
     }
@@ -135,10 +138,7 @@ const TransactionComponent = () => {
                 </div>
                 <div>
                   <h1 className="text-[10px] text-end mb-[1px] text-gray-500">
-                    {format(
-                      new Date(item.timestamp),
-                      "HH:mm:ss dd/MMM/yyyy EEEE"
-                    )}
+                    {format(new Date(item.timestamp), "dd/MMM/yyyy")}
                   </h1>
                   <p className="text-[10px] text-gray-500 text-end">Amount</p>
                   <p className="text-[11px] text-gray-500 font-semibold text-end">
@@ -170,7 +170,7 @@ const TransactionComponent = () => {
                     <p className="font-bold text-[12px] text-gray-500">
                       Recipient
                     </p>
-                    <p className="font-bold text-[12px] max-w-[69px] text-gray-500 truncate">
+                    <p className="font-bold text-[12px] max-w-[100px] text-gray-500 truncate">
                       {detailItem.recipient}
                     </p>
                   </div>
@@ -178,13 +178,13 @@ const TransactionComponent = () => {
                     <p className="font-bold text-[12px] text-gray-500">
                       Amount
                     </p>
-                    <p className="font-bold text-[12px] max-w-[69px] text-gray-500 truncate">
+                    <p className="font-bold text-[12px] max-w-[100px] text-gray-500 truncate">
                       {parseFloat(detailItem.amount).toFixed(1)}
                     </p>
                   </div>
                   <div className="flex justify-between">
                     <p className="font-bold text-[12px] text-gray-500">Hash</p>
-                    <p className="font-bold text-[12px] max-w-[69px] text-gray-500 truncate">
+                    <p className="font-bold text-[12px] max-w-[100px] text-gray-500 truncate">
                       {detailItem.transaction_hash}
                     </p>
                   </div>
@@ -192,7 +192,7 @@ const TransactionComponent = () => {
                     <p className="font-bold text-[12px] text-gray-500">Time</p>
                     <div className="text-end">
                       <p className="font-bold text-[12px] text-gray-500">
-                        {format(new Date(detailItem.timestamp), "HH:mm")}
+                        {format(new Date(detailItem.timestamp), "hh:mm a")}
                       </p>
                       <p className="font-bold text-[12px] text-gray-500">
                         {format(new Date(detailItem.timestamp), "dd/MMM/yyyy")}
