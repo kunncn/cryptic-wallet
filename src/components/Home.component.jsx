@@ -58,7 +58,7 @@ const HomeComponent = () => {
       toast.current.show({
         severity,
         summary: "Transaction Failed",
-        detail: errorMessage,
+        detail: res.error.data.message || errorMessage,
         life: 3000,
       });
     }
