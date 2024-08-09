@@ -6,10 +6,9 @@ import { classNames } from "primereact/utils";
 import notWalletFound from "../assets/wallet-not-found.svg";
 import { useCreateWalletMutation } from "../services/endpoints/wallet.endpoint";
 import { Toast } from "primereact/toast";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import format from "date-fns/format";
 import { Dialog } from "primereact/dialog";
-import { useState } from "react";
 
 const TransactionComponent = () => {
   const [createWallet, { isLoading: createWalletLoading }] =
@@ -22,6 +21,8 @@ const TransactionComponent = () => {
   } = useGetTransactionHistoryQuery();
   const toast = useRef(null);
   const [visible, setVisible] = useState(false);
+  const [visibleDetail, setVisibleDetail] = useState(false);
+  const [detailItem, setDetailItem] = useState(null);
 
   const handleCreateWallet = async (createWallet) => {
     const res = await createWallet();
@@ -34,6 +35,11 @@ const TransactionComponent = () => {
         life: 1500,
       });
     }
+  };
+
+  const showDetailHandler = (item) => {
+    setDetailItem(item);
+    setVisibleDetail(true);
   };
 
   if (isError) {
@@ -110,39 +116,92 @@ const TransactionComponent = () => {
           visible={visible}
           maximizable
           style={{ width: "90vw" }}
-          onHide={() => {
-            if (!visible) return;
-            setVisible(false);
-          }}
+          onHide={() => setVisible(false)}
         >
           <div className="flex flex-col gap-[10px]">
-            {transactionHistory.map((item) => {
-              return (
-                <div
-                  key={item.timestamp}
-                  className="flex justify-between bg-gray-50 rounded-sm p-[10px] items-center gap-[10px]"
-                >
-                  <div>
-                    <Avvvatars value={item.recipient} size={32} />
-                  </div>
-                  <div className="max-w-max min-w-[100px]">
-                    <p className="text-[10px] text-gray-500">Recipient</p>
-                    <p className="text-[10px] text-gray-500 truncate">
-                      {item.recipient}
+            {transactionHistory.map((item) => (
+              <div
+                key={item.timestamp}
+                className="flex justify-between bg-gray-50 rounded-sm p-[10px] items-center gap-[10px]"
+              >
+                <div>
+                  <Avvvatars value={item.recipient} size={32} />
+                </div>
+                <div className="max-w-max min-w-[100px]">
+                  <p className="text-[10px] text-gray-500">Recipient</p>
+                  <p className="text-[10px] text-gray-500 truncate">
+                    {item.recipient}
+                  </p>
+                </div>
+                <div>
+                  <h1 className="text-[10px] text-end mb-[1px] text-gray-500">
+                    {format(
+                      new Date(item.timestamp),
+                      "HH:mm:ss dd/MMM/yyyy EEEE"
+                    )}
+                  </h1>
+                  <p className="text-[10px] text-gray-500 text-end">Amount</p>
+                  <p className="text-[11px] text-gray-500 font-semibold text-end">
+                    {parseFloat(item.amount).toFixed(1)}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Dialog>
+
+        <Dialog
+          draggable={false}
+          dismissableMask={true}
+          header="Transaction Detail"
+          visible={visibleDetail}
+          maximizable
+          style={{ width: "90vw" }}
+          onHide={() => setVisibleDetail(false)}
+        >
+          <div className="flex flex-col gap-[10px] h-full justify-center">
+            {detailItem && (
+              <div className="bg-gray-50 rounded-sm p-[10px] flex flex-col gap-3 items-center">
+                <div className="flex justify-center">
+                  <Avvvatars value={detailItem.recipient} size={50} />
+                </div>
+                <div className="max-w-[300px] w-full flex flex-col gap-3">
+                  <div className="flex justify-between">
+                    <p className="font-bold text-[12px] text-gray-500">
+                      Recipient
+                    </p>
+                    <p className="font-bold text-[12px] max-w-[69px] text-gray-500 truncate">
+                      {detailItem.recipient}
                     </p>
                   </div>
-                  <div>
-                    <h1 className="text-[10px] text-end mb-[1px] text-gray-500">
-                      {format(new Date(item.timestamp), "dd/MM/yyyy")}
-                    </h1>
-                    <p className="text-[10px] text-gray-500 text-end">Amount</p>
-                    <p className="text-[11px] text-gray-500 font-semibold text-end">
-                      {parseFloat(item.amount).toFixed(1)}
+                  <div className="flex justify-between">
+                    <p className="font-bold text-[12px] text-gray-500">
+                      Amount
                     </p>
+                    <p className="font-bold text-[12px] max-w-[69px] text-gray-500 truncate">
+                      {parseFloat(detailItem.amount).toFixed(1)}
+                    </p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="font-bold text-[12px] text-gray-500">Hash</p>
+                    <p className="font-bold text-[12px] max-w-[69px] text-gray-500 truncate">
+                      {detailItem.transaction_hash}
+                    </p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <p className="font-bold text-[12px] text-gray-500">Time</p>
+                    <div className="text-end">
+                      <p className="font-bold text-[12px] text-gray-500">
+                        {format(new Date(detailItem.timestamp), "HH:mm")}
+                      </p>
+                      <p className="font-bold text-[12px] text-gray-500">
+                        {format(new Date(detailItem.timestamp), "dd/MMM/yyyy")}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            )}
           </div>
         </Dialog>
 
@@ -150,6 +209,7 @@ const TransactionComponent = () => {
           <div
             key={item.timestamp}
             className="flex justify-between bg-gray-50 rounded-sm p-[10px] items-center gap-[10px]"
+            onClick={() => showDetailHandler(item)} // Logs the transaction details on click
           >
             <div>
               <Avvvatars value={item.recipient} size={32} />
@@ -161,8 +221,8 @@ const TransactionComponent = () => {
               </p>
             </div>
             <div>
-              <h1 className="text-[10px] text-end mb-[1px] text-gray-500">
-                {format(new Date(item.timestamp), "dd/MM/yyyy")}
+              <h1 className="text-[10px] text-end mb-[1px] text-gray-500 text-nowrap">
+                {format(new Date(item.timestamp), "dd/MMM/yyyy")}
               </h1>
               <p className="text-[10px] text-gray-500 text-end">Amount</p>
               <p className="text-[11px] text-gray-500 font-semibold text-end">

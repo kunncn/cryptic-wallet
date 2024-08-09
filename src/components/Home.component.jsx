@@ -15,7 +15,6 @@ import TransactionComponent from "./Transaction.component";
 
 const HomeComponent = () => {
   const toast = useRef(null);
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [visible, setVisible] = useState(false);
   const [receiveVisible, setReceiveVisible] = useState(false);
   const [cryptoAddress, setCryptoAddress] = useState("");
